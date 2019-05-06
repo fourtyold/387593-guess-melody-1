@@ -5,15 +5,20 @@ import App from "./app.jsx";
 
 Enzyme.configure({adapter: new Adapter()});
 
+const options = {
+  maxTime: 999,
+  maxAttempts: 99,
+  testClickHandler: jest.fn()
+};
+
 it(`Click on start game button works correctly`, () => {
-  const testClickHandler = jest.fn();
   const app = shallow(<App
-    maxTime = {999}
-    maxAttempts = {99}
-    clickHandler = {testClickHandler}
+    maxTime = {options.maxTime}
+    maxAttempts = {options.maxAttempts}
+    clickHandler = {options.testClickHandler}
   />);
 
   const startButton = app.find(`button`);
   startButton.simulate(`click`);
-  expect(testClickHandler).toHaveBeenCalledTimes(1);
+  expect(options.testClickHandler).toHaveBeenCalledTimes(1);
 });
